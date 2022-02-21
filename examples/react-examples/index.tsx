@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ComponentTeste from "../../lib/react";
+import ComponentTeste from "fck-brasil-location-selector";
 ReactDOM.render(
     <React.StrictMode>
         <div className='fck-examples'> 
