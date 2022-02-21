@@ -1,4 +1,9 @@
 {
     "extends": "./tsconfig.json",
-    "exclude": ["node_modules", "tests", "examples", "presentation"],
+    "compilerOptions": {   
+        "outDir": "./lib",
+        "declarationDir": "./lib/types",
+        
+    },
+    "exclude": ["node_modules", "tests", "examples"]
 }

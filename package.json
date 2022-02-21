@@ -6,10 +6,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "example:1": "ts-node-dev -r tsconfig-paths/register ./examples/test01.ts ",
-    "test": "jest --passWithNoTests --runInBand --no-cache --watch --silent",
-    "build": "rimraf lib/* && tsc -p tsconfig-build.json",
-    "build:watch": "npm run build -- --watch"
+    "copy-react-files": "copyfiles -u 1 src/**/*.css src/**/*.svg lib/",
+    "build": "rimraf lib/* && npm run copy-react-files && tsc -p tsconfig-build.json",
+    "example:core": "ts-node-dev -r tsconfig-paths/register ./examples/core.ts ",
+    "example:react": "npm run build && webpack-dev-server --config ./examples/react-examples/webpack.config.js"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
@@ -19,7 +19,12 @@
     "ts-jest": "^27.1.2",
     "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^3.12.0",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "react": ">=17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1"
   },
   "peerDependencies": {
     "typescript": ">=4.5.3"
