@@ -1,1 +1,3 @@
-export const test = "asdasd"
+export const test: string = "testabdo"
+
+export default test
