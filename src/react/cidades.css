@@ -1,0 +1,34 @@
+.cidade-page-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%; height: 100%;
+    flex-grow: 1;
+}
+
+.cidade-page-container > section{
+   /*  border: solid 3px rgb(9, 226, 63); */
+}
+
+.cidade-page-container > section:nth-child(2){
+    border: solid 3px rgb(9, 49, 226);
+    overflow-y: scroll;
+}
+
+
+/* .cidades-container .cidades-container-flow{
+    position: relative;
+    width: 100%;height: 100%;
+    overflow-y: scroll;
+    border: solid 2px rgb(0, 255, 13);
+}
+ */
+
+/* .cidades-container .cidades-container-flow > section{
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: fit-content;
+}  */

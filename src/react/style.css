@@ -1,0 +1,23 @@
+/* Componente glboal */
+.react-fck-br-location-selector{
+    width: fit-content; height: fit-content;
+    box-sizing: border-box
+}
+
+
+/* carousel */
+.react-fck-br-location-selector-carousel-frame{
+    background-color: rgb(191, 245, 191);
+    width: 550px; height: 550px;
+    border: solid 2px ;
+  
+}
+
+/* @media screen and (max-width: 756px){
+    .react-fck-br-location-selector{
+        width: 100%;
+    }
+    .react-fck-br-location-selector-carousel-frame{
+        width: 100%;
+    }
+} */

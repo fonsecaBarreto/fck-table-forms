@@ -1,0 +1,28 @@
+#svg-map path { fill:#0094d9 }
+#svg-map text { fill:#fff; font:12px Arial-BoldMT, sans-serif; cursor:pointer }
+#svg-map a{ text-decoration:none }
+#svg-map a:hover { cursor:pointer; text-decoration:none;}
+#svg-map a:hover path{ fill:#003399 !important }
+#svg-map .circle { fill:#66ccff; border: solid 2px red}
+#svg-map a:hover .circle { fill:#003399 !important; cursor:pointer }
+
+.mapa-container{
+    position: relative;
+    overflow: scroll;
+    border: solid 2px rgb(255, 0, 179);
+    width: 100%; height: 550px;
+}
+
+.mapa-container-buttons{
+    position: absolute;
+    right: 0; bottom: 0;
+    z-index: 1;
+    background-color: red; 
+}
+
+.mapa-container-buttons > button{
+/*     border: solid 2px red; */
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}

@@ -36,3 +36,5 @@ export const get_municipios_uf = async (uf: number) =>{
     }
 }
 
+
+//https://servicodados.ibge.gov.br/api/v1/localidades/estados
