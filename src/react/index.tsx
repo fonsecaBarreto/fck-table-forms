@@ -36,7 +36,7 @@ export const SelectorComponenet: React.FunctionComponent<any> = () =>{
     return (
         <div className='react-fck-br-location-selector'>
             <SelectorCarousel index={page}>
-                <MapaEstados onClick={(id:string) => setSelectedUF(id)}/>
+                <MapaEstados entry={abrengencia} onClick={(id:string) => setSelectedUF(id)}/>
                 <CidadesPage onEnd={after} id={selectedUF} entry={abrengencia.find((v:any)=>v.id == selectedUF)}></CidadesPage> 
             </SelectorCarousel>
             {JSON.stringify(abrengencia)}
