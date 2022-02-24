@@ -4,6 +4,7 @@
   "private": false,
   "scripts": {
     "pre-dev": "rimraf ./node_modules/fck-br-location-selector && npm install",
+    "build": "rimraf dist/* && webpack --config ./webpack.config.js",
     "dev": "webpack-dev-server --config ./webpack.config.js"
   },
   "devDependencies": {

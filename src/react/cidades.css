@@ -13,7 +13,6 @@
 }
 
 .cidade-page-container > section:nth-child(2){
-    border: solid 3px rgb(9, 49, 226);
     overflow-y: scroll;
 }
 

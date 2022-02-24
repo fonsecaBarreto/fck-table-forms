@@ -40,8 +40,8 @@ const CidadesPage = ({id, entry, onEnd}:{ id: number; onEnd:any, entry: Location
         <div className='cidade-page-container'>
             <section>    
                 <button onClick={()=>onEnd()}> Voltar </button>
-                <h3> Cidades para o uf { id }  </h3> 
-                <input></input> PEsquise aqui
+                <h3> Cidades para o uf codigo { id }  </h3> 
+                <input></input> 
             </section>
 
             <section>

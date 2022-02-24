@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Abrangencia } from '..'
+import { Abrangencia, LocationSelector } from '..'
 import '../mapa.css'
 import { UFS } from './UFS'
 
@@ -21,6 +21,11 @@ export default ({onClick, entry=[] }: { onClick: Function, entry: Abrangencia[]}
   const [ zoom, setZoom] = useState(1) 
   const [ pos, setPos] = useState([0,0]) 
 
+  const handleZoom = (value: number) =>{
+    var result = zoom + value;
+    if(result < 1 || result > 1.4)return;
+    setZoom(result)
+  }
 
   return (
     <div className='mapa-container'>
@@ -34,10 +39,11 @@ export default ({onClick, entry=[] }: { onClick: Function, entry: Abrangencia[]}
               x={`0px`} y={"0px"} width={WIDTH} height={HEIGHT} viewBox={`0 0 ${WIDTH} ${HEIGHT}}`}>
               <g>
                 { UFS.map(({id, component}:any)=>{
-                  var indexof = entry.findIndex((v: any)=>v.id == id)
-                  var selected = indexof === -1 ? false : true
+                  var indexof = entry.findIndex((v: any)=>v.id == id);
+                  var selectedItem: any = (indexof === -1) ? null : entry[indexof];
+                  let isSelected = !selectedItem ? false : selectedItem?.cidades.length > 0 ? true : false
                   return (
-                    <UfComponent key={id} id={id} onClick={onClick} selected={selected}>
+                    <UfComponent key={id} id={id} onClick={onClick} selected={isSelected}>
                       {component}
                     </UfComponent>)
                 })}
@@ -47,8 +53,8 @@ export default ({onClick, entry=[] }: { onClick: Function, entry: Abrangencia[]}
       </section>
 
       <section>
-        <button onClick={() => setZoom(zoom+PASSO)}> + </button> 
-        <button onClick={() => setZoom(zoom-PASSO)}> - </button>
+        <button onClick={ () => handleZoom(PASSO) }> + </button> 
+        <button onClick={ () => handleZoom(PASSO*-1)}> - </button>
       </section> 
     </div>
   )

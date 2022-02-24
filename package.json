@@ -5,13 +5,16 @@
   "types": "lib/index.d.ts",
   "license": "MIT",
   "private": false,
+  "homepage":"https://fonsecabarreto.github.io/fck-brasil-location-selector/",
   "scripts": {
+    "predeploy":"npm run build --prefix ./examples/react-example",
+    "deploy":"gh-pages -d examples/react-example/dist",
     "copy-react-files": "copyfiles -u 1 src/**/*.css src/**/*.svg lib/",
     "build": "rimraf lib/* && npm run copy-react-files && tsc -p tsconfig-build.json",
     "build:watch": "npm run build -- --watch",
     "example:core": "npm run build && ts-node-dev -r tsconfig-paths/register ./examples/core.ts ",
-    "example:react": "npm run dev --prefix ./examples/react-example",
-    "pack-link": "npm run build && npm pack && npm run pre-dev --prefix ./examples/react-example "
+    "example:react:build": "npm run build --prefix ./examples/react-example",
+    "pack-link": "npm run build && npm pack && npm run pre-dev --prefix ./examples/react-example"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
@@ -20,13 +23,13 @@
     "axios": "^0.26.0",
     "copyfiles": "^2.4.1",
     "jest": "^27.4.5",
+    "react": ">=17.0.2",
+    "react-dom": "^17.0.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.2",
     "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^3.12.0",
-    "typescript": "^4.5.4",
-    "react": ">=17.0.2",
-    "react-dom": "^17.0.2"
+    "typescript": "^4.5.4"
   },
   "peerDependencies": {
     "axios": "^0.26.0",
@@ -36,5 +39,8 @@
   },
   "files": [
     "/lib"
-  ]
+  ],
+  "dependencies": {
+    "gh-pages": "^3.2.3"
+  }
 }
