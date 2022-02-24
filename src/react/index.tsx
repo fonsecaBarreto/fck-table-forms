@@ -13,12 +13,19 @@ export namespace LocationSelector {
 export type Abrangencia = LocationSelector.Estato[]
 
 export const SelectorComponenet: React.FunctionComponent<any> = () =>{
-    const [ selectedUF, setSelectedUF ] = useState<any>(null)
+
+    const [ currentEntry, setCurrentEntry ] = useState<LocationSelector.Estato | null>(null) 
+    const [ selectedUF, setSelectedUF ] = useState<number | null>(null)
     const [ page, setPage ] = useState(0) 
     const [ abrengencia, setAbrengencia ] = useState<Abrangencia[]>([]) 
 
-    useEffect(()=>{ setPage(!selectedUF ? 0 : 1) },[ selectedUF])
+    // Right after a uf were selected 
+    useEffect(()=>{ 
+        setCurrentEntry(findOutUf())   // Update the current Entry to the edit page
+        setPage(!selectedUF ? 0 : 1)   // Change page when a uf is selected
+    },[ selectedUF])
 
+    // after the changes where made
     const after = (result?: string[]) =>{
         if(!result) return setSelectedUF(null) // it will go backwats to map page
         const id = selectedUF;
@@ -30,16 +37,23 @@ export const SelectorComponenet: React.FunctionComponent<any> = () =>{
             else { new_state.splice(indexExists, 1, payload)}
             return new_state;
         })
+        return setSelectedUF(null) // it will go backwats to map page
     }
-
+    
+    // Find out if the uf exists in the current 'abrangencia'
+    const findOutUf = ():LocationSelector.Estato | null => {
+        const indexOf = abrengencia.findIndex( (v:any) => v.id === selectedUF);
+        if(indexOf === -1) return null;
+        const estado: any= abrengencia[indexOf]
+        return estado;
+    }
 
     return (
         <div className='react-fck-br-location-selector'>
             <SelectorCarousel index={page}>
-                <MapaEstados entry={abrengencia} onClick={(id:string) => setSelectedUF(id)}/>
-                <CidadesPage onEnd={after} id={selectedUF} entry={abrengencia.find((v:any)=>v.id == selectedUF)}></CidadesPage> 
+                <MapaEstados entry={abrengencia} onClick={(id: number ) => setSelectedUF(id)}/>
+                <CidadesPage onEnd={after} id={selectedUF ?? -1} entry={currentEntry}></CidadesPage> 
             </SelectorCarousel>
-            {JSON.stringify(abrengencia)}
         </div>
     )
 }

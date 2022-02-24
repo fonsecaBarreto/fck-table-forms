@@ -1,23 +1,26 @@
 /* Componente glboal */
 .react-fck-br-location-selector{
     width: fit-content; height: fit-content;
-    box-sizing: border-box
+    border: solid 1px #aaa;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
+.react-fck-br-location-selector, .react-fck-br-location-selector * {
+    box-sizing: border-box;
+}
 
 /* carousel */
 .react-fck-br-location-selector-carousel-frame{
-    background-color: rgb(191, 245, 191);
+    background-color: rgb(243, 243, 243);
     width: 550px; height: 550px;
-    border: solid 2px ;
-  
 }
 
-/* @media screen and (max-width: 756px){
+@media screen and (max-width: 756px){
     .react-fck-br-location-selector{
         width: 100%;
     }
     .react-fck-br-location-selector-carousel-frame{
         width: 100%;
     }
-} */
+}

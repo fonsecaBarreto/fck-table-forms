@@ -1,32 +1,51 @@
 
+#svg-map { }
 #svg-map text { fill:#fff; font:12px Arial-BoldMT, sans-serif; cursor:pointer }
 #svg-map a{ text-decoration:none }
-#svg-map a path { fill: #bdbdbd  }
+#svg-map a path { fill: #a7a7a7  }
 #svg-map a:hover { cursor:pointer; text-decoration:none;}
-#svg-map a:hover path{ fill:#003399 !important }
+#svg-map a:hover path{ fill:#1980e0 !important }
 /* Path quando selecioando */
 #svg-map a.uf-selected path{ fill:#0689c5!important }
-
-#svg-map .circle { fill:#66ccff; border: solid 2px red}
+#svg-map .circle { fill:#8f8f8f; border: solid 2px red}
 #svg-map a:hover .circle { fill:#003399 !important; cursor:pointer }
 
 .mapa-container{
     position: relative;
-    overflow: scroll;
-    border: solid 2px rgb(255, 0, 179);
-    width: 100%; height: 550px;
+    overflow: none;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, rgba(235,235,235,0.08) 0%, rgba(218,218,218,0.12) 27%, rgba(255,255,255,1) 100%);
 }
 
-.mapa-container-buttons{
+.mapa-container > section{}
+
+.mapa-container > section:nth-child(1){
+    position: relative;
+    width: 100%; height: 100%;
+    overflow: scroll; 
+    border: solid 1px r#ddd;
+}
+
+.mapa-container > section:nth-child(1) > div{
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto;
+    height: fit-content;
+    width: fit-content;
+}
+
+.mapa-container > section:nth-child(2){
     position: absolute;
     right: 0; bottom: 0;
-    z-index: 1;
-    background-color: red; 
+    position: absolute;
+    width: fit-content; height: fit-content;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
-.mapa-container-buttons > button{
-/*     border: solid 2px red; */
+.mapa-container > section:nth-child(2) > button{
     width: 32px;
     height: 32px;
     cursor: pointer;
-}
+    border-radius: 50%;
+} 
