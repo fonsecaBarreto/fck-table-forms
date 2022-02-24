@@ -2,14 +2,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 
+
+//Diferenciar development de produção
 module.exports = {
     target: "web",
     mode: 'development',
+    devtool: 'inline-source-map',
     entry: { 'main': path.resolve(__dirname, 'src/index.tsx')},
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/'
+        publicPath: '/',
     },
     module: {
         rules: [
@@ -49,8 +52,6 @@ module.exports = {
         })
     ],
     resolve: { extensions: [".ts", ".tsx", ".js", ".jsx"] },
-    mode: 'development',
-    devtool: 'inline-source-map',
     devServer: {
         static: {  directory: path.join(__dirname, 'dist') },
         host: "localhost",

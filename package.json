@@ -13,7 +13,7 @@
     "build": "rimraf lib/* && npm run copy-react-files && tsc -p tsconfig-build.json",
     "build:watch": "npm run build -- --watch",
     "example:core": "npm run build && ts-node-dev -r tsconfig-paths/register ./examples/core.ts ",
-    "example:react:build": "npm run build --prefix ./examples/react-example",
+    "example:react": "npm run dev --prefix ./examples/react-example",
     "pack-link": "npm run build && npm pack && npm run pre-dev --prefix ./examples/react-example"
   },
   "devDependencies": {
