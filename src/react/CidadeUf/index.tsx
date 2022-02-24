@@ -40,8 +40,11 @@ const CidadesPage = ({id, entry, onEnd}:{ id: number; onEnd:any, entry: Location
         <div className='cidade-page-container'>
             <section>    
                 <button onClick={()=>onEnd()}> Voltar </button>
-                <h3> Cidades para o uf codigo { id }  </h3> 
-                <input></input> 
+                <h3> Cidades para o uf codigo: { id }  </h3> 
+                <div className="cidade-page-container-search-bar" >
+                    <input></input> 
+                    <button> pesquisar </button>
+                </div>
             </section>
 
             <section>
@@ -54,7 +57,7 @@ const CidadesPage = ({id, entry, onEnd}:{ id: number; onEnd:any, entry: Location
             </section>
 
             <section> 
-                <span> Total Selecionado: {selectedItems.length}</span>     
+                <span> Total Selecionado: {selectedItems.length}/{cidades_ibge.length }</span>     
                 <button onClick={()=>onEnd(selectedItems)}> Ok</button>   
             </section>       
 

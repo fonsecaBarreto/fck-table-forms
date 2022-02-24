@@ -7,7 +7,7 @@
 #svg-map a:hover path{ fill:#1980e0 !important }
 /* Path quando selecioando */
 #svg-map a.uf-selected path{ fill:#0689c5!important }
-#svg-map .circle { fill:#8f8f8f; border: solid 2px red}
+#svg-map .circle { fill:#8f8f8f;}
 #svg-map a:hover .circle { fill:#003399 !important; cursor:pointer }
 
 .mapa-container{
@@ -23,7 +23,7 @@
     position: relative;
     width: 100%; height: 100%;
     overflow: scroll; 
-    border: solid 1px r#ddd;
+    border: solid 1px #ddd;
 }
 
 .mapa-container > section:nth-child(1) > div{
