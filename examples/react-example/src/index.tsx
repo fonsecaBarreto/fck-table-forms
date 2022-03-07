@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import ReactComponent from 'fck-br-location-selector/react' 
 import './style.css'
+const INITIAL_DATA:any[] = [
+    {
+      id: 23,
+      cidades: ["2300606"]
+     }
+]
 const App = () =>{
     const [ data, setData ] = useState([])
     const handleEmitData = (data: any) =>{
@@ -14,7 +20,7 @@ const App = () =>{
                 <a target="__blank" href={"https://github.com/fonsecaBarreto/fck-brasil-location-selector"}> @fonsecaBarreto/fck-brasil-location-selector  </a>
             </h3>
 
-            <ReactComponent emitData={handleEmitData}/>
+            <ReactComponent emitData={handleEmitData} initialData={INITIAL_DATA}/>
 
             <h3> Modelo </h3>
 

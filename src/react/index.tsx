@@ -7,12 +7,20 @@ import CidadesPage from './CidadeUf'
 import { Abrangencia, EstadoIBGE } from '@/core'
 import { UF_LIST } from './Mapa/UFS'
 
-export const SelectorComponenet: React.FunctionComponent<any> = ({ emitData }) =>{
+export namespace SelectorComponent{
+    export type Params = {
+        emitData: (arg: any) => void,
+        initialData?: Abrangencia
+    }
+}
+
+export const SelectorComponenet: React.FunctionComponent<SelectorComponent.Params> = ({ emitData, initialData=[] }) =>{
 
     const [ selectedUF, setSelectedUF ] = useState<UF_LIST | null>(null)
     const [ abrengencia, setAbrengencia ] = useState<Abrangencia>([]) 
     const [ page, setPage ] = useState(0) 
 
+    useEffect(() => { setAbrengencia(initialData) },[initialData]);
     useEffect(() => { emitData(abrengencia) },[ abrengencia ]);
     useEffect(() => { setPage(!selectedUF ? 0 : 1) },[ selectedUF ])
 
