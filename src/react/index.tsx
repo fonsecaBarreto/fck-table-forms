@@ -20,7 +20,7 @@ export const SelectorComponenet: React.FunctionComponent<SelectorComponent.Param
     const [ abrengencia, setAbrengencia ] = useState<Abrangencia>([]) 
     const [ page, setPage ] = useState(0) 
 
-    useEffect(() => { setAbrengencia(initialData) },[initialData]);
+    useEffect(() => { console.log("nova dados iniciais"); setAbrengencia(initialData) },[initialData]);
     useEffect(() => { emitData(abrengencia) },[ abrengencia ]);
     useEffect(() => { setPage(!selectedUF ? 0 : 1) },[ selectedUF ])
 
