@@ -1,0 +1,8 @@
+.fck-examples{
+    max-width: 600px;
+    overflow: hidden;
+}
+
+.fck-examples div{
+    white-space: normal;
+}

@@ -2,64 +2,102 @@
 
 import React, { useEffect, useState } from 'react'
 import '../cidades.css'
-import { get_regioes, get_municipios_uf } from '../../core/ibge-services'  
-import { LocationSelector } from '../'
-/* Ao clicar deve selecionar multiplos tal e enviar com o função onEnd */
+import { get_estado } from '../../core/ibge-services'  
+import { EstadoIBGE } from '@/core'
 
-const CidadesPage = ({id, entry, onEnd}:{ id: number; onEnd:any, entry: LocationSelector.Estato | null}) =>{
+const UseIbgeState =({ id }: { id: any}) =>{
 
-    const [selectedItems, setSelectedItems] = useState<string[]>([])
-    const [cidades_ibge, setCidadesIbge] = useState<any>([])
+    const [ estado_ibge, setEstado_ibge ] = useState<EstadoIBGE | null>(null);
+    const [ cidades_ibge, setCidades_ibge] = useState<any[]>([]);
+    const [ searchText, setSearchText] = useState("")
 
-    useEffect(()=>{ 
-        // if a empty entry it will continue;
-        if(!entry) return; 
+    useEffect(()=>{  get_estado(id).then(setEstado_ibge)  },[id])
 
-         // if the same entry if will do nothing as well
-        var cidades_entry = entry.cidades;
-        if( cidades_entry.every((value, index) =>(
-            value === selectedItems[index]))
-        ) return; 
-    
-        setSelectedItems(cidades_entry)
-    },[entry])
+    useEffect(()=>{ handleFilter(estado_ibge?.cidades ?? []) },[estado_ibge])
 
-    useEffect(()=>{  get_municipios_uf(id).then(setCidadesIbge) },[id])
+    const handleFilter = (cidades: any, text?: string ) => 
+    { 
+        if(!text) return setCidades_ibge(cidades);
+        var sanitized_value = text.toLowerCase().trim();
+        var resultado = cidades.filter((x:any) => x.nome.toLowerCase().includes(sanitized_value))
+        return setCidades_ibge(resultado);
+    }
+
+    return {
+        estado_ibge,
+        cidades_ibge,
+        searchText, setSearchText,
+        handleFilter
+    }
+}
+
+export namespace CidadesPages {
+    export type Params = {
+        onEnd:any, 
+        id: number,
+        current_state: any
+    }
+}
+
+const CidadesPage = ({ id, onEnd, current_state }:CidadesPages.Params) =>{
+
+    const [ selectedList, setSelectedList ] = useState<string[]>([]) // Cidades selecionadas
+    const { cidades_ibge, estado_ibge, searchText, setSearchText, handleFilter } = UseIbgeState({ id });
+
+    useEffect( ()=> { 
+        const indexOf = current_state.findIndex( (v:any) => v.id === id);
+        if(indexOf === -1) return;
+        const estado: any= current_state[indexOf];
+        return setSelectedList(estado.cidades)
+    },[current_state])
 
     const handleClick = (id:any) =>{
-        setSelectedItems((prev)=>{
-            var prevData: any = [ ...prev ]
+        setSelectedList((prev)=>{
+            if(id == -1) {
+                if(selectedList.length === cidades_ibge.length) return [];
+                var all_selected = cidades_ibge.map((c:any)=>c.id);
+                return all_selected
+            }
+            var prevData: any = [ ...prev ];
             let sliced = prevData.filter((c:any)=> c != id); 
             prevData = sliced.length < prevData.length ? sliced : [ ...prevData, id ] 
             return (prevData)
-        })
-    }
+        }) 
+    } 
+
 
     if(cidades_ibge.length == 0 ) return <span> "Loading..." </span> 
     return (
         <div className='cidade-page-container'>
+         
             <section>    
-                <button onClick={()=>onEnd()}> Voltar </button>
-                <h3> Cidades para o uf codigo: { id }  </h3> 
+                <header>
+                    <button onClick={()=>onEnd()}> Voltar </button>
+                    <span>{ estado_ibge?.nome }</span>
+                </header>
                 <div className="cidade-page-container-search-bar" >
-                    <input></input> 
-                    <button> pesquisar </button>
-                </div>
+                    <input value={searchText} onInput={(e:any)=>setSearchText(e.target.value)}></input> 
+                    <button onClick={() => handleFilter(cidades_ibge, searchText)}> pesquisar </button>
+                </div> 
             </section>
 
             <section>
+                <div className='city-check-box' onClick={() => handleClick(-1)} key={-1}>
+                    <input readOnly value={-1} type="checkbox" checked={selectedList.length == cidades_ibge.length}/>
+                    <label>Todos</label>
+                </div>
                 { cidades_ibge.map((c:any)=>(
-                    <div onClick={() => handleClick(c.id)} key={c.id}>
-                        <input readOnly value={c.id} type="checkbox" checked={selectedItems.includes(c.id)}/>
+                    <div className='city-check-box' onClick={() => handleClick(c.id)} key={c.id}>
+                        <input readOnly value={c.id} type="checkbox" checked={selectedList.includes(c.id)}/>
                         <label>{c.nome}</label>
                     </div>
-                ))}
+                ))} 
             </section>
 
             <section> 
-                <span> Total Selecionado: {selectedItems.length}/{cidades_ibge.length }</span>     
-                <button onClick={()=>onEnd(selectedItems)}> Ok</button>   
-            </section>       
+                <span> Total Selecionado: {selectedList.length}/{cidades_ibge.length }</span>     
+                <button onClick={()=>onEnd(selectedList)}> Ok</button>   
+            </section>    
 
         </div>
     )

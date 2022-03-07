@@ -4,55 +4,37 @@ import './style.css'
 /* Paginas */
 import MapaEstados from './Mapa/Brasil-Estados'
 import CidadesPage from './CidadeUf'
+import { Abrangencia, EstadoIBGE } from '@/core'
+import { UF_LIST } from './Mapa/UFS'
 
-export namespace LocationSelector {
-    export type Estato = {id: string, cidades: string[] }
-    export type Cidades = string
-}
+export const SelectorComponenet: React.FunctionComponent<any> = ({ emitData }) =>{
 
-export type Abrangencia = LocationSelector.Estato[]
-
-export const SelectorComponenet: React.FunctionComponent<any> = () =>{
-
-    const [ currentEntry, setCurrentEntry ] = useState<LocationSelector.Estato | null>(null) 
-    const [ selectedUF, setSelectedUF ] = useState<number | null>(null)
+    const [ selectedUF, setSelectedUF ] = useState<UF_LIST | null>(null)
+    const [ abrengencia, setAbrengencia ] = useState<Abrangencia>([]) 
     const [ page, setPage ] = useState(0) 
-    const [ abrengencia, setAbrengencia ] = useState<Abrangencia[]>([]) 
 
-    // Right after a uf were selected 
-    useEffect(()=>{ 
-        setCurrentEntry(findOutUf())   // Update the current Entry to the edit page
-        setPage(!selectedUF ? 0 : 1)   // Change page when a uf is selected
-    },[ selectedUF])
+    useEffect(() => { emitData(abrengencia) },[ abrengencia ]);
+    useEffect(() => { setPage(!selectedUF ? 0 : 1) },[ selectedUF ])
 
-    // after the changes where made
-    const after = (result?: string[]) =>{
-        if(!result) return setSelectedUF(null) // it will go backwats to map page
-        const id = selectedUF;
-        var payload:any = { id, cidades: result };
+    const after = (cidades_result?: string[]) =>{
+        if(!cidades_result) return setSelectedUF(null);
+        const id = selectedUF?.id;
+        var payload: any = { id, cidades: cidades_result };
         setAbrengencia((prev: any)=>{
             var new_state = [ ...prev]
-            let indexExists = (abrengencia.findIndex((s:any)=>s.id == id)) ;
+            let indexExists = ( prev.findIndex((s:any)=> s.id == id));
             if (indexExists == -1) new_state.push(payload)
             else { new_state.splice(indexExists, 1, payload)}
-            return new_state;
+            return new_state; 
         })
-        return setSelectedUF(null) // it will go backwats to map page
-    }
-    
-    // Find out if the uf exists in the current 'abrangencia'
-    const findOutUf = ():LocationSelector.Estato | null => {
-        const indexOf = abrengencia.findIndex( (v:any) => v.id === selectedUF);
-        if(indexOf === -1) return null;
-        const estado: any= abrengencia[indexOf]
-        return estado;
+        return setSelectedUF(null) // it will go backwats to map page */
     }
 
     return (
         <div className='react-fck-br-location-selector'>
             <SelectorCarousel index={page}>
-                <MapaEstados entry={abrengencia} onClick={(id: number ) => setSelectedUF(id)}/>
-                <CidadesPage onEnd={after} id={selectedUF ?? -1} entry={currentEntry}></CidadesPage> 
+                <MapaEstados current_state={abrengencia} onClick={setSelectedUF}/>
+                <CidadesPage current_state={abrengencia} id={ (selectedUF?.id) ? selectedUF.id : -1} onEnd={after} ></CidadesPage> 
             </SelectorCarousel>
         </div>
     )

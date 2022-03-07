@@ -19,12 +19,31 @@
 /* first */
 .cidade-page-container > section:nth-child(1){
     flex-direction:column;
+    gap: 6px;
+}
+
+.cidade-page-container > section:nth-child(1) > header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.cidade-page-container > section:nth-child(1) > header button{
+    padding: 4px 10px;
+    height: fit-content;
+    border: solid 1px #ddd;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 /* search bar */
 .cidade-page-container-search-bar{
-    width:100%; flex-direction:row;
+    width:100%; display: flex; flex-direction:row;
     border: solid 1px #ddd;
+    overflow: hidden;
+    border-radius: 4px;
 }
 
 .cidade-page-container-search-bar > input{
@@ -32,11 +51,42 @@
    height: 35px;
 }
 
+.cidade-page-container-search-bar > button{
+    padding: 4px 10px;
+    height: 100%;
+    border-left: solid 1px #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 /* second */
+
 .cidade-page-container > section:nth-child(2){
     overflow-y: scroll;
     border: solid 1px #ccc
 }
+
+.cidade-page-container > section:nth-child(2) .city-check-box{
+    width: 100%;
+    padding: 1px 0;
+    border-radius: 4px;
+}
+
+.cidade-page-container > section:nth-child(2) .city-check-box > *{
+    cursor: pointer;
+}
+
+.cidade-page-container > section:nth-child(2) .city-check-box:hover{
+    background-color: rgba(81, 149, 212, 0.274);
+    
+}
+
+.cidade-page-container > section:nth-child(2) div:nth-child(1){
+    margin-bottom: 4px;
+    padding-bottom: 2px;
+    border-bottom: solid 1px #ddd;
+}
+
 
 /* terceiro */
 .cidade-page-container > section:nth-child(3){

@@ -1,5 +1,13 @@
-import React from 'react'
-export const UFS = [
+import React, { Component } from 'react'
+
+export interface UF_LIST {
+    id: number, 
+    sigla: string, 
+    nome: string, 
+    component: any 
+}
+
+export const UFS: UF_LIST[] = [
     {
       id: 17,
       sigla: "TO",
