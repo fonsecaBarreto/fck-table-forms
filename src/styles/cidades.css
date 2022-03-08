@@ -1,3 +1,6 @@
+
+/* cidades selector */
+
 .cidade-page-container{
     display: grid;
     grid-template-columns: 1fr;
@@ -113,10 +116,6 @@
 
 
     
-
-
-
-
 
 /* .cidades-container .cidades-container-flow{
     position: relative;

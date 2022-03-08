@@ -1,11 +1,8 @@
-
-
 import React, { useEffect, useState } from 'react'
-import '../cidades.css'
-import { get_estado } from '../../core/ibge-services'  
-import { EstadoIBGE } from '@/core'
+import { EstadoIBGE, get_estado } from '../../services'
+import '../../styles/cidades.css'
 
-const UseIbgeState =({ id }: { id: any}) =>{
+const UseIbgeState =({ id }: { id: any }) =>{
 
     const [ estado_ibge, setEstado_ibge ] = useState<EstadoIBGE | null>(null);
     const [ cidades_ibge, setCidades_ibge] = useState<any[]>([]);
@@ -13,11 +10,14 @@ const UseIbgeState =({ id }: { id: any}) =>{
 
     useEffect(()=>{  get_estado(id).then(setEstado_ibge)  },[id])
 
-    useEffect(()=>{ handleFilter(estado_ibge?.cidades ?? []) },[estado_ibge])
+    useEffect(()=>{ handleFilter() },[estado_ibge])
 
-    const handleFilter = (cidades: any, text?: string ) => 
-    { 
-        if(!text) return setCidades_ibge(cidades);
+    const handleFilter = (withText: boolean = false) => 
+    {   
+        var cidades = estado_ibge?.cidades ?? []
+        if(withText == false ) return setCidades_ibge(cidades);
+
+        var text = searchText;
         var sanitized_value = text.toLowerCase().trim();
         var resultado = cidades.filter((x:any) => x.nome.toLowerCase().includes(sanitized_value))
         return setCidades_ibge(resultado);
@@ -66,7 +66,7 @@ const CidadesPage = ({ id, onEnd, current_state }:CidadesPages.Params) =>{
     } 
 
 
-    if(cidades_ibge.length == 0 ) return <span> "Loading..." </span> 
+    if(estado_ibge?.cidades.length == 0 ) return <span> "Loading..." </span> 
     return (
         <div className='cidade-page-container'>
          
@@ -77,7 +77,7 @@ const CidadesPage = ({ id, onEnd, current_state }:CidadesPages.Params) =>{
                 </header>
                 <div className="cidade-page-container-search-bar" >
                     <input value={searchText} onInput={(e:any)=>setSearchText(e.target.value)}></input> 
-                    <button onClick={() => handleFilter(cidades_ibge, searchText)}> pesquisar </button>
+                    <button onClick={() => handleFilter(true)}> pesquisar </button>
                 </div> 
             </section>
 

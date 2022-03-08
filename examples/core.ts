@@ -1,8 +1,8 @@
-import core from '@lib/core'
+import { get_estado  } from '@lib/services'
 
-export function main() {
-    console.log("A baixo mostar todas as regiões, estados da regiao norte e municipios de um estado aleatorio:");
-    core()
+export async function main() {
+    const data = await get_estado(22)
+    console.log("\n  -> Regiao IBGE: ", data)
 }
 
 main()

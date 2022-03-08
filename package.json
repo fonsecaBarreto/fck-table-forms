@@ -1,6 +1,6 @@
 {
   "name": "fck-br-location-selector",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "license": "MIT",
@@ -9,7 +9,7 @@
   "scripts": {
     "predeploy":"npm run build --prefix ./examples/react-example",
     "deploy":"gh-pages -d examples/react-example/dist",
-    "copy-react-files": "copyfiles -u 1 src/**/*.css src/**/*.svg lib/",
+    "copy-react-files": "copyfiles -u 1 src/styles/*.css src/**/*.svg lib/",
     "build": "rimraf lib/* && npm run copy-react-files && tsc -p tsconfig-build.json",
     "build:watch": "npm run build -- --watch",
     "example:core": "npm run build && ts-node-dev -r tsconfig-paths/register ./examples/core.ts ",

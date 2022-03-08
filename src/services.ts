@@ -1,5 +1,16 @@
 import axios from 'axios'
-import { EstadoIBGE } from '.'
+
+export type EstadoIBGE = { id: number, sigla: string, nome: string, cidades: any }
+export type CidadeIBGE = { id: number, sigla: string, nome: string }
+export type Abrangencia = { id: number, cidades: string[]}[]
+
+export interface UF_LIST {
+    id: number, 
+    sigla: string, 
+    nome: string, 
+    component: any 
+}
+
 
 export const get_estado = async (uf: number): Promise<EstadoIBGE> =>{ 
     var estado = { id: -1,  sigla: "", nome: "", cidades: [] };
