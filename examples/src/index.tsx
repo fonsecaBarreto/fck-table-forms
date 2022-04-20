@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import Component from 'fck-br-location-selector' 
+import Component, { TableForms, MkHeader } from 'fck-table-forms' 
 import './style.css'
 
+export const TEST_HEADERS: TableForms.Header[] = [   
+    MkHeader("EAN *", "ean", "text", 2),
+    MkHeader("Especificação *", "specification", "text", 4), 
+    MkHeader("Outro *", "outro", "text", 3), 
+    MkHeader("Mais um *", "maisum", "text", 3), 
+   /*  MkHeader("Marca *", "brand", "select", 3, []),  */
+]
+ 
 const App = () =>{
     const [ data, setData ] = useState([])
     const handleEmitData = (data: any) =>{
@@ -10,11 +18,12 @@ const App = () =>{
     }
     return (
         <div className='fck-examples'> 
-            <h1> fck-location-selector</h1>
+            <h1> fck-table-forms</h1>
             <h3> GitHub Repository:
-                <a target="__blank" href={"https://github.com/fonsecaBarreto/"}> @fonsecaBarreto/...  </a>
+                <a target="__blank" href={"https://github.com/fonsecaBarreto/fck-table-forms"}> @fonsecaBarreto/fck-table-forms </a>
             </h3>
-            <Component/>
+            
+            <Component entries={[{}]} headers={TEST_HEADERS}/> 
         </div>
     )
 }

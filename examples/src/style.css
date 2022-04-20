@@ -1,6 +1,11 @@
 .fck-examples{
-    width: 600px;
-    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    border: solid 1px #ddd;
+    border-radius: 6px;
+    max-width: 860px;
+    margin: auto;
+    padding: 20px;
 }
 
 .fck-examples div{
