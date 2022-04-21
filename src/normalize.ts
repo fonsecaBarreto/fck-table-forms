@@ -1,5 +1,18 @@
 import {TableForms} from "."; 
 
+export const serializeErrors = (errors: any, data: any) =>{
+    if(!errors || !data) return {}
+    console.log("entrada erros")
+    var final_errors:any ={}
+    Object.keys(data).map((d, i)=>{
+        var { key } = data[d];
+        if( errors[i] ){
+            final_errors[key]=errors[i]
+        }
+    })
+    return final_errors
+}
+
 export const normalizeEntries = (entry: any[], headers: TableForms.Header[]) =>{
     var final_data: any[] = [];
     final_data = entry.map((entry_unit: any)=>{

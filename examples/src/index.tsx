@@ -12,10 +12,15 @@ export const TEST_HEADERS: TableForms.Header[] = [
 ]
  
 const App = () =>{
-    const [ data, setData ] = useState([])
-    const handleEmitData = (data: any) =>{
-        setData(data)
-    }
+    const [ initial_data, setInitial_data ] = useState([{}])
+    const [ result_data, setResultData ] = useState(null)
+    const [ errors, setErrors ] = useState<any>(null)
+    
+     useEffect(()=>{
+        setTimeout(()=>{
+            setErrors({ 0: { outro: "rersasd"} })
+        },100)
+    },[]) 
     return (
         <div className='fck-examples'> 
             <h1> fck-table-forms</h1>
@@ -23,7 +28,14 @@ const App = () =>{
                 <a target="__blank" href={"https://github.com/fonsecaBarreto/fck-table-forms"}> @fonsecaBarreto/fck-table-forms </a>
             </h3>
             
-            <Component entries={[{}]} headers={TEST_HEADERS}/> 
+            <Component
+                onChange={setResultData}
+                errors={errors} entries={initial_data} headers={TEST_HEADERS}/> 
+
+            <div>
+                <label> Resultado: </label>
+                <span>{JSON.stringify(result_data)}</span>
+            </div>
         </div>
     )
 }

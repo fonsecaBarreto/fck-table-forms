@@ -1,9 +1,9 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './styles/main.css'
 import HeaderRow from './Table/Rows/HeaderRow'
 import InputRow from './Table/Rows/BodyRow'
-import { normalizeEntries, normalizeSingleEntry } from './normalize'
+import { normalizeEntries, normalizeSingleEntry, serializeErrors } from './normalize'
 /* Paginas */
 
 export namespace TableForms{
@@ -24,13 +24,17 @@ export const MkHeader = (label: string ="", value="", type="text", columns=1, li
     return ({ label, value, type, columns, list })
 }
 
-export const TableForms: React.FunctionComponent<TableForms.Params> = ({ entries=[], errors, headers, onChange }) =>{
+export const TableForms: React.FunctionComponent<TableForms.Params> = ({ entries, errors, headers, onChange }) =>{
     if(!headers) return <div> Carregando Tabela... </div>
-    const [ freeze, setFreeze ] = useState(false);
-    const [ data, setData ] = useState<any>([]);
 
-    useEffect(()=> { setData(normalizeEntries(entries, headers)); }, [entries])
+    const [ freeze, setFreeze ] = useState(false);
+    const [ data, setData ] = useState<any>(null)
+    const [ parsedErrors, setParsedErrors ] = useState({})
+
+    useEffect(()=> { if(entries){ setData(normalizeEntries(entries, headers)); }}, [entries])
+    useEffect(()=> { setParsedErrors(serializeErrors(errors, data))},[errors])
     useEffect(()=> onChange && onChange(data),[data])
+
     const pushDataRow = (index: number, data: any) =>{
         setData((prev:any[]) => {
             var result_list = [ ...prev ];
@@ -44,7 +48,6 @@ export const TableForms: React.FunctionComponent<TableForms.Params> = ({ entries
     }
 
     const handleActions = (key:string, p: any) =>{ 
-        console.log(key, p)
         switch(key){
             case "ADD": setData((prev:any)=>( [ normalizeSingleEntry({}, headers) , ...prev ] ));break;
             case "REMOVE": pushDataRow(p.index, null);break;
@@ -57,12 +60,14 @@ export const TableForms: React.FunctionComponent<TableForms.Params> = ({ entries
     return (
         <div className={`table-forms ${freeze? "freeze": ""}`}>
            <section className='mform-grid'>
-           <HeaderRow headers={headers} onChange={handleActions}></HeaderRow> 
-                { data.map((d: any, i: number)=>(
-                    <InputRow errors={errors} index={i+1} onChange={(k,p)=>handleActions(k,{index:i,data: p})} key={d.key} headers={headers} entry={d}></InputRow>
+                <HeaderRow headers={headers} onChange={handleActions}></HeaderRow> 
+                { data && data.map((d: any, i: number)=>(
+                    <InputRow errors={ parsedErrors?.[d.key] } index={i+1} key={d.key}
+                        onChange={(k,p)=>handleActions(k,{index:i,data: p})} headers={headers} entry={d}>
+                    </InputRow>
                 ))} 
            </section> 
-        </div>
+        </div>         
     )
 }
 

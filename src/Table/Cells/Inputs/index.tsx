@@ -19,7 +19,7 @@ export const CellInput: React.FunctionComponent<CellInput.Params> = ({ error, na
             <React.Fragment >
                 <input placeholder={placeHolder ?? ""} value={value} onInput={(e: any)=>onInput(name, e.target.value)}></input> 
             </React.Fragment>
-           {/*  { (error && type != "select") && <span className={`float-status-error`}> <RiErrorWarningLine/> </span> } */}
+            { error && <span className={`float-status-error`}> <RiErrorWarningLine/> </span> } 
         </div>  
     )
 }

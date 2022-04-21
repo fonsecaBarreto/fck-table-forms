@@ -45,7 +45,7 @@ export const InputRow: React.FunctionComponent<InputRow.Params> = ({ index, head
                         let { value: name, type, list } = h
                         return (
                             <div key={i} style={{gridColumn: `span ${h.columns ?? 3}`}}> 
-                                 <CellInput error={null} value={inputs[name]} name={name} onInput={handleInputs}>
+                                 <CellInput error={errors?.[name]} value={inputs[name]} name={name} onInput={handleInputs}>
                                 </CellInput> 
                             </div>
                         )

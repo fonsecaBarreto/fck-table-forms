@@ -26,3 +26,17 @@
     font-size: 14px;
     font-weight: bold;
 }
+
+
+/* .m-form-row-input > .float-status-error:hover::after{
+    content: "";
+    position: absolute;
+    top: 150%; left: 0px;
+    margin: auto;
+    height: 20px;
+    width: 200px;
+    display: flex;align-items: center; justify-content: center;
+    background-color: red;
+    font-size: 14px;
+    font-weight: bold;
+} */
