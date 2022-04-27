@@ -1,6 +1,6 @@
 /* Linhas*/
 .mform-row{
-    width: calc(100); height: fit-content;
+    width: calc(100%); height: fit-content;
     display: grid; grid-template-columns: 16px 44px 1fr 44px 16px; 
     grid-template-rows: 1fr;
     overflow: hidden;
@@ -18,7 +18,7 @@
     color: rgb(121, 0, 6);
     font-weight: bold;
     border: none;
-    font-size: 13px;
+    font-size: 14px;
 }
 .mform-row> section:nth-child(2) {
     padding: 4px;
@@ -91,7 +91,7 @@
 /* status */
 
 .mform-row.warning{
-    background-color: rgba(221, 11, 11, 0.795);
+    background-color: rgba(235, 23, 23, 0.596);
 }
 
 .mform-row.freeze { position: relative; }

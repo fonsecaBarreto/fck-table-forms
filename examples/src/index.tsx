@@ -4,10 +4,13 @@ import Component, { TableForms, MkHeader } from 'fck-table-forms'
 import './style.css'
 
 export const TEST_HEADERS: TableForms.Header[] = [   
-    MkHeader("EAN *", "ean", "text", 2),
-    MkHeader("Especificação *", "specification", "text", 4), 
+    MkHeader("Nome", "name", "text", 3),
+    MkHeader("Idade", "age", "text", 3),
+    MkHeader("Altura", "height", "text", 3),
+    MkHeader("Outro", "outro", "text", 3),
+   /*  MkHeader("Especificação *", "specification", "text", 4), 
     MkHeader("Outro *", "outro", "text", 3), 
-    MkHeader("Mais um *", "maisum", "text", 3), 
+    MkHeader("Mais um *", "maisum", "text", 3),  */
    /*  MkHeader("Marca *", "brand", "select", 3, []),  */
 ]
  
