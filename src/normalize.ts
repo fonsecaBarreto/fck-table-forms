@@ -1,8 +1,8 @@
 import {TableForms} from "."; 
+import { v4 } from 'uuid'
 
 export const serializeErrors = (errors: any, data: any) =>{
     if(!errors || !data) return {}
-    console.log("entrada erros")
     var final_errors:any ={}
     Object.keys(data).map((d, i)=>{
         var { key } = data[d];
@@ -23,7 +23,7 @@ export const normalizeEntries = (entry: any[], headers: TableForms.Header[]) =>{
 
 export const normalizeSingleEntry = (entry_unit: any, headers: TableForms.Header[]) =>{
     var data_row: any = {}
-    data_row['key']= Date.now()+""
+    data_row['key']= v4();
     headers.map( (header:  TableForms.Header)=>{
         let { list, type='text' } = header
         let name = header.value;

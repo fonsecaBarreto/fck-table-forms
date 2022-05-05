@@ -19,11 +19,11 @@ const App = () =>{
     const [ result_data, setResultData ] = useState(null)
     const [ errors, setErrors ] = useState<any>(null)
     
-     useEffect(()=>{
+ /*     useEffect(()=>{
         setTimeout(()=>{
             setErrors({ 0: { outro: "rersasd"} })
         },100)
-    },[]) 
+    },[])  */
     return (
         <div className='fck-examples'> 
             <h1> fck-table-forms</h1>

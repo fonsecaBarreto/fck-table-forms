@@ -1,13 +1,13 @@
 {
   "name": "fck-table-forms",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "predeploy":"npm run build --prefix ./examples/react-example",
-    "deploy":"gh-pages -d examples/react-example/dist",
+    "predeploy": "npm run build --prefix ./examples/react-example",
+    "deploy": "gh-pages -d examples/react-example/dist",
     "copy-react-files": "copyfiles -u 1 src/styles/*.css src/**/*.svg lib/",
     "build": "rimraf lib/* && npm run copy-react-files && tsc -p tsconfig-build.json",
     "build:watch": "npm run build -- --watch",
@@ -18,6 +18,7 @@
     "@tsconfig/recommended": "^1.0.1",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
+    "@types/uuid": "^8.3.4",
     "axios": "^0.26.0",
     "copyfiles": "^2.4.1",
     "jest": "^27.4.5",
@@ -32,8 +33,9 @@
   "peerDependencies": {
     "react": ">=17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
     "typescript": ">=4.5.3",
-    "react-icons": "^4.3.1"
+    "uuid": "^8.3.2"
   },
   "files": [
     "/lib"
