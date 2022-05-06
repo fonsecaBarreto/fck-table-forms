@@ -1,14 +1,9 @@
 import React, { useEffect } from 'react';
 
 const ErrorLogPanel = ({errors}: any) =>{
-
-    useEffect(()=>{
-        console.log("entrada de erros", errors)
-    },[errors])
-
     return (
         <div>
-            {/* { !errors || Object.keys(errors).length == 0 ? " Nenhum erro encontrado ":
+            { !errors || Object.keys(errors).length == 0 ? " Nenhum erro encontrado ":
                 <ul>
                     { 
                         Object.keys(errors).map((e:any) => {
@@ -23,7 +18,7 @@ const ErrorLogPanel = ({errors}: any) =>{
                     })
                     }
                 </ul>
-            } */}
+            } 
         </div>
     )
 }
