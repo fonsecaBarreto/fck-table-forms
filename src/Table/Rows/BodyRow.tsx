@@ -48,10 +48,10 @@ export const InputRow: React.FunctionComponent<InputRow.Params> = ({ index, head
             <React.Fragment>
                {   
                     headers.map((h: TableForms.Header, i: number)=> {
-                        let { value: name, list } = h
+                        let { value: name, list, convert } = h
                         return (
                             <div key={i} style={{gridColumn: `span ${h.columns ?? 3}`}}> 
-                                 <CellInput list={list} error={errors?.[name]} value={inputs[name]} name={name} onInput={handleInputs}>
+                                 <CellInput convert={convert} list={list} error={errors?.[name]} value={inputs[name]} name={name} onInput={handleInputs}>
                                 </CellInput> 
                             </div>
                         )

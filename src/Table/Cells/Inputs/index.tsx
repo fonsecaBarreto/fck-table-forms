@@ -9,7 +9,8 @@ export namespace CellInput {
         onInput: any,
         list?: any,
         placeHolder?: string,
-        error?: any
+        error?: any,
+        convert?: string
     }
 }
 
@@ -33,21 +34,29 @@ export const SelectionInput: React.FunctionComponent<any> = ({ value, name, list
     )
 }
 
-export const TextInput: React.FunctionComponent<any> = ({ placeHolder, value, name, onInput}) => {
+export const TextInput: React.FunctionComponent<any> = ({ placeHolder, value, name, onInput, type}) => {
     return (
         <React.Fragment>
-            <input placeholder={placeHolder ?? ""} value={value} onInput={(e: any)=>onInput(name, e.target.value)}></input> 
+            <input type={type} placeholder={placeHolder ?? ""} value={value} onInput={(e: any)=>onInput(name, e.target.value)}></input> 
         </React.Fragment>
     )
 }
 
-export const CellInput: React.FunctionComponent<CellInput.Params> = ({ error, list, ...rest }) =>{
+/* export const DatePicker: React.FunctionComponent<any> = ({ value, name, onInput}) => {
+    return (
+        <React.Fragment>
+            <input type="date" value={value} onInput={(e: any)=>onInput(name, e.target.value)}></input> 
+        </React.Fragment>
+    )
+} */
+
+export const CellInput: React.FunctionComponent<CellInput.Params> = ({ error, list, convert, ...rest }) =>{
     return (
         <div className={`m-form-row-input ${error ? "error": ""}`} > 
             <React.Fragment >
                 {list ? 
                     <SelectionInput {...rest} list={list}></SelectionInput> :
-                    <TextInput { ...rest} ></TextInput>
+                    <TextInput { ...rest} type={convert ?? "text"}></TextInput>
                 }
             </React.Fragment>
             { error && <span className={`float-status-error`}> <RiErrorWarningLine/> </span> } 
@@ -56,3 +65,5 @@ export const CellInput: React.FunctionComponent<CellInput.Params> = ({ error, li
 }
 
 export default CellInput 
+
+

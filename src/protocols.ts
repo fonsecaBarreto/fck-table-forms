@@ -3,7 +3,8 @@ export namespace TableForms{
         label: string, 
         value: string, 
         columns?: number, 
-        list?: {label: string, value: string}[]
+        list?: string[][],
+        convert?: "date" | "number"
     }
     export type Params = {
         entries: any[]
