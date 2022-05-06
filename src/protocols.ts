@@ -3,7 +3,6 @@ export namespace TableForms{
         label: string, 
         value: string, 
         columns?: number, 
-        type?: string | "text" | "select", 
         list?: {label: string, value: string}[]
     }
     export type Params = {
@@ -16,6 +15,6 @@ export namespace TableForms{
     export type Errors = Record<string, Record<string, any>>
 }
 
-export const MkHeader = (label: string ="", value="", type="text", columns=1, list =[]): TableForms.Header =>{
-    return ({ label, value, type, columns, list })
+export const MkHeader = (label: string ="", value="", columns=1, list: any[]): TableForms.Header =>{
+    return ({ label, value, columns, list })
 }

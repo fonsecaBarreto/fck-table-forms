@@ -3,8 +3,7 @@
 .mform-header{ 
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif!important;
     position: sticky; top: 0; z-index: 1;
-    background-image: linear-gradient(160deg, #0093E9 0%, #119beb 100%)!important;
-    box-shadow: 0px 1px 1px 0px #00000012; 
+    background-color: grey;
     width: 100%;
     color: white;
     text-shadow: 0px 1px 2px #333;

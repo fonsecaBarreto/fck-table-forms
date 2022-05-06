@@ -16,21 +16,25 @@ export const normalizeEntries = (entry: any[], headers: TableForms.Header[]) =>{
     final_data = entry.map((entry_unit: any)=>{
         return normalizeSingleEntry(entry_unit, headers)
     })
+    console.log("final data", final_data)
     return final_data 
 }
 
 export const normalizeSingleEntry = (entry_unit: any, headers: TableForms.Header[]) =>{
     var data_row: any = {}
     data_row['key']= v4();
+
     headers.map( (header:  TableForms.Header)=>{
-        let { list, type='text' } = header
+        let { list } = header;
         let name = header.value;
-        var value:any=  entry_unit[name] ?? "" 
-        if(type == "select"){
-            list = (list && list.length > 0) ? list: [];
-            let list_labels = list.map(v=>v.label.toUpperCase()) ?? []
-            var indexOf = list_labels.findIndex((v_name:string)=> v_name === value.toUpperCase() );
-            value = indexOf != -1 ? list[indexOf] : { label: "", value: ""}
+        var rec_value: any = entry_unit[name] ?? "";
+        var value: any ="";
+        if(list && list?.length > 0 ){
+            let listValues = list.map(v=> v[0]);
+            var indexOf = listValues.findIndex((v:string)=> v === rec_value );
+            value = (indexOf != -1 ) ? list[indexOf][0] : "";
+        }else{
+            value = rec_value;
         }
         data_row[name] = value
     })

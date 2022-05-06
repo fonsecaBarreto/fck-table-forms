@@ -13,14 +13,17 @@ import Component, { TableForms, MkHeader } from 'fck-table-forms'
 import './style.css'
 
 export const TEST_HEADERS: TableForms.Header[] = [   
-    MkHeader("Nome", "name", "text", 3),
-    MkHeader("Idade", "age", "text", 3),
-    MkHeader("Altura", "height", "text", 3),
-    MkHeader("Outro", "outro", "text", 3)
+    MkHeader("Nome", "name", 3),
+    MkHeader("Idade", "age", 3),
+    MkHeader("Altura", "height", 3),
+    MkHeader("Outro", "outro", 3, [["180"], ["200"], ["300"]])
 ]
 
 const ENTRADA_EXTERNA = [
-    { name: "teste"},{ age: 2, name: "meu nome"}
+    { name: "teste"},
+    { age: 2, name: "meu nome"},
+    { age: 4, name: "Com valor invalido", outro:"valor invalido"},
+    { age: 10, name: "Com valor valido", outro:"200"},
 ]
 
 const ERROS_EXTERNOS = [
@@ -28,7 +31,7 @@ const ERROS_EXTERNOS = [
 ]
  
 const App = () =>{
-    const [ initial_data, setInitial_data ] = useState<any>(null)
+    const [ initial_data, setInitial_data ] = useState<any>([])
     const [ result_data, setResultData ] = useState(null)
     const [ errors, setErrors ] = useState<any>(null)
 

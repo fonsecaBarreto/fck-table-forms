@@ -3,11 +3,11 @@
     width: calc(100%); height: fit-content;
     display: grid; grid-template-columns: 16px 44px 1fr 44px 16px; 
     grid-template-rows: 1fr;
-    overflow: hidden;
     background-color: rgb(243, 243, 243);
     border-radius: 4px;
     padding: 2px;
     border: solid 1px #eee;
+    overflow: hidden;
 }
 /* Conteudo */
 .mform-row > section{ 

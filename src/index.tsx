@@ -92,22 +92,6 @@ export default TableFormsComponent
         counter.setCount(final_data.length)
     }, [entries])
 
-    const addBlankData = () =>{ 
-        var prev = [ normalizeSingleEntry({}, headers), ...data.get()]
-        data.set(prev)
-        counter.setCount(counter.getCount()+1)
-    }
-
-    const rmDataFrom = (index:number) =>{
-        var prev = [ ...data.get()]
-        prev.splice(index, 1)
-        data.set(prev)
-        counter.setCount(counter.getCount()-1)
-    }
-
-    const validateData = async (object: any): Promise<SchemaValidator.Errors | null> =>{
-        return await validator.validate(schema, object);
-    }
 
     const onDataEmited = async ( data_entry: any ) =>{
         var localData = [ ...data.get() ]
