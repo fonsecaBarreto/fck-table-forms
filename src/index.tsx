@@ -4,74 +4,72 @@ import './styles/main.css'
 import HeaderRow from './Table/Rows/HeaderRow'
 import InputRow from './Table/Rows/BodyRow'
 import { normalizeEntries, normalizeSingleEntry, serializeErrors } from './normalize'
-/* Paginas */
+import ErrorLogPanel from './LogPanel'
+import { TableForms } from './protocols'
+export * from "./protocols"
 
-export namespace TableForms{
-    export type Header = {  
-        label: string, value: string, columns?: number, 
-        type?: string | "text" | "select", 
-        list?: {label: string, value: string}[]
-    }
-    export type Params = {
-        entries: any[]
-        errors: any,
-        headers: Header[],
-        onChange?: any
-    }
-}
-
-export const MkHeader = (label: string ="", value="", type="text", columns=1, list =[]): TableForms.Header =>{
-    return ({ label, value, type, columns, list })
-}
-
-export const TableForms: React.FunctionComponent<TableForms.Params> = ({ entries, errors, headers, onChange }) =>{
+export const TableFormsComponent: React.FunctionComponent<TableForms.Params> = ({ entries, errors, headers, onChange }) =>{
     if(!headers) return <div> Carregando Tabela... </div>
 
-    const [ freeze, setFreeze ] = useState(false);
-    const [ data, setData ] = useState<any>(null)
-    const [ parsedErrors, setParsedErrors ] = useState({})
-
+    const [ data, setData ] = useState<TableForms.Data>([])
+    const [ parsedErrors, setParsedErrors ] = useState<TableForms.Errors>({})
+    /* Ao entrar data deve ser sanitizada, de movo a ganhar uma identificação unica */
     useEffect(()=> { if(entries){ setData(normalizeEntries(entries, headers)); }}, [entries])
-    useEffect(()=> { setParsedErrors(serializeErrors(errors, data))},[errors])
-    useEffect(()=> onChange && onChange(data),[data])
+    /* Erros devem da mesma forma serem serializados para sincronizar com suas respectivas referencias de dados */
+    useEffect(()=> { if(errors) setParsedErrors(serializeErrors(errors, data))},[errors])
+    /* Quando data é alterado, seus valores são emitidos para o componente externo */
+    useEffect(()=> { onChange && onChange(data) },[data]) 
 
-    const pushDataRow = (index: number, data: any) =>{
+    /* Adiciona uma nova linha normalizada */
+    const addNewRow = () => {
+        setData((prev:any[]) => [ normalizeSingleEntry({}, headers), ...prev ])
+    }
+
+    /* subistitui linha ao indice x */
+    const pushRow = (index: number, data: any) =>{
         setData((prev:any[]) => {
-            var result_list = [ ...prev ];
-            if(data) { 
-                result_list.splice(index, 1, data);
-            }else{
-                result_list.splice(index, 1);
-            }
+            var result_list = [ ...prev ]; result_list.splice(index, 1, data);
             return result_list;
         })
     }
 
-    const handleActions = (key:string, p: any) =>{ 
-        switch(key){
-            case "ADD": setData((prev:any)=>( [ normalizeSingleEntry({}, headers) , ...prev ] ));break;
-            case "REMOVE": pushDataRow(p.index, null);break;
-            case "PUSH": pushDataRow(p.index, p.data);break;
-            case "CLEAR": setData((prev: any) => (normalizeEntries([{}], headers)));break;
-            default: console.log("nenhuma ação")
-        }
+    /* Remove linha ao indice x */
+    const removeRow = (index: number) =>{
+        setData((prev:any[]) => {
+            var result_list = [ ...prev ]; result_list.splice(index, 1);
+            return result_list;
+        })
     }
 
+    const handleActions = ( key:string, p: any) =>{ 
+        switch(key){
+            case "PUSH":{ 
+                if( p.data == null ) return addNewRow();
+                pushRow(p.index, p.data);
+            };break;
+            case "REMOVE": removeRow(p.index);break;
+            case "CLEAR": setData((prev: any) => (normalizeEntries([{}], headers)));break;
+            default: console.log("-");
+        }
+    }
     return (
-        <div className={`table-forms ${freeze? "freeze": ""}`}>
-           <section className='mform-grid'>
-                <HeaderRow headers={headers} onChange={handleActions}></HeaderRow> 
-                { data && data.map((d: any, i: number)=>(
-                    <InputRow errors={ parsedErrors?.[d.key] } index={i+1} key={d.key}
-                        onChange={(k,p)=>handleActions(k,{index:i,data: p})} headers={headers} entry={d}>
-                    </InputRow>
-                ))} 
-           </section> 
-        </div>         
+        <React.Fragment>
+            <div className={`table-forms ${false? "freeze": ""}`}>
+                <section className='mform-grid'>
+                    <HeaderRow headers={headers} onChange={handleActions}></HeaderRow> 
+                    { data.map((d: any, i: number)=>(
+                        <InputRow errors={ parsedErrors?.[d.key] } index={i+1} key={d.key}
+                            onChange={ (k,p)=>handleActions(k,{index:i,data: p})  } headers={headers} entry={d}>
+                        </InputRow>
+                    ))} 
+                </section> 
+            </div>  
+            <ErrorLogPanel errors={parsedErrors}></ErrorLogPanel>
+        </React.Fragment>
     )
 }
 
-export default TableForms
+export default TableFormsComponent
 
 
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
-import MultiplesForms, { TableForms } from '../..'
+import { TableForms } from '../../protocols'
 import CellInput from '../Cells/Inputs'
 import TableRow from './TableRow'
-import { IoMdTrash } from 'react-icons/io'
-import { GrStatusCriticalSmall, GrStatusDisabled, GrStatusUnknown } from 'react-icons/gr'
+/* icones */
+import { GrStatusDisabled, GrStatusUnknown } from 'react-icons/gr'
 import { RiErrorWarningLine } from 'react-icons/ri'
-import { AiOutlineCheckCircle, AiOutlineCloudSync } from 'react-icons/ai'
+import { AiOutlineCheckCircle } from 'react-icons/ai'
 
 export namespace InputRow {
     export type Params = {
@@ -20,12 +20,18 @@ export namespace InputRow {
 
 export const InputRow: React.FunctionComponent<InputRow.Params> = ({ index, headers, onChange, entry, errors={}, success=false}) => {
 
+    const firstRef = useRef(false);
     const [ inputs, setInputs ] = useState(entry)
 
-    useEffect(()=>{ onChange && onChange("PUSH",inputs) },[inputs])
+    useEffect(() => { 
+        if(firstRef.current == false) {firstRef.current = true; return;}
+        onChange && onChange("PUSH",inputs) 
+    },[inputs])
+
     const handleInputs = (name: string, value: string) => {
         setInputs((prev:any) => ({ ...prev, [name]: value }))
     }
+
     return (
         <TableRow columns={headers.length} warning={ ( Object.keys(errors).length > 0 ) ? true : false}>
             <React.Fragment>{index}</React.Fragment>
@@ -41,7 +47,7 @@ export const InputRow: React.FunctionComponent<InputRow.Params> = ({ index, head
             </React.Fragment>
             <React.Fragment>
                {   
-                    headers.map((h: MultiplesForms.Header, i: number)=> {
+                    headers.map((h: TableForms.Header, i: number)=> {
                         let { value: name, type, list } = h
                         return (
                             <div key={i} style={{gridColumn: `span ${h.columns ?? 3}`}}> 

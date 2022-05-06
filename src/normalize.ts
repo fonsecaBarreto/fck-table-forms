@@ -6,9 +6,7 @@ export const serializeErrors = (errors: any, data: any) =>{
     var final_errors:any ={}
     Object.keys(data).map((d, i)=>{
         var { key } = data[d];
-        if( errors[i] ){
-            final_errors[key]=errors[i]
-        }
+        if(errors[i]) final_errors[key]=errors[i];
     })
     return final_errors
 }
