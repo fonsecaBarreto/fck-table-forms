@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import '../../../styles/cell-input.css'
-import { RiErrorWarningLine } from 'react-icons/ri'
 
 export namespace CellInput {
     export type Params = {
@@ -59,7 +58,7 @@ export const CellInput: React.FunctionComponent<CellInput.Params> = ({ error, li
                     <TextInput { ...rest} type={convert ?? "text"}></TextInput>
                 }
             </React.Fragment>
-            { error && <span className={`float-status-error`}> <RiErrorWarningLine/> </span> } 
+           {/*  { error && <span className={`float-status-error`}> <RiErrorWarningLine/> </span> }  */}
         </div>  
     )
 }

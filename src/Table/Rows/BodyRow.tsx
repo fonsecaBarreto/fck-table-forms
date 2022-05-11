@@ -2,10 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { TableForms } from '../../protocols'
 import CellInput from '../Cells/Inputs'
 import TableRow from './TableRow'
-/* icones */
-import { GrStatusDisabled, GrStatusUnknown } from 'react-icons/gr'
-import { RiErrorWarningLine } from 'react-icons/ri'
-import { AiOutlineCheckCircle } from 'react-icons/ai'
 
 export namespace InputRow {
     export type Params = {
@@ -39,9 +35,9 @@ export const InputRow: React.FunctionComponent<InputRow.Params> = ({ index, head
                 <button className={`row-status-btn ${ success ? "success" : ""}`}> 
                     {   
                         ( Object.keys(errors).length > 0 ) 
-                        ? <RiErrorWarningLine/> 
-                        : success ? <AiOutlineCheckCircle/>
-                        :<GrStatusUnknown/>    
+                        ? <span> &#9888; </span>
+                        : success ? <span> &check; </span>
+                        : <span> &#9900; </span>
                     } 
                 </button>
             </React.Fragment>
@@ -59,7 +55,7 @@ export const InputRow: React.FunctionComponent<InputRow.Params> = ({ index, head
                 }
             </React.Fragment>
             <React.Fragment> 
-                <button onClick={()=>onChange&& onChange("REMOVE")}> <GrStatusDisabled/> </button> 
+                <button onClick={()=>onChange&& onChange("REMOVE")}> &#10006; </button> 
             </React.Fragment>
         </TableRow>
     )

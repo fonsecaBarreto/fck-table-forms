@@ -1,7 +1,7 @@
 import React from 'react'
 import "../../styles/header-row.css"
 import TableRow from './TableRow'
-import { AiOutlinePlusSquare, AiOutlineClear } from 'react-icons/ai'
+
 import { TableForms } from '../..'
 
 export namespace HeaderRow {
@@ -16,7 +16,7 @@ export const HeaderRow: React.FunctionComponent<HeaderRow.Params>= ({ headers, o
         <React.Fragment> </React.Fragment>
         <React.Fragment>
             <button onClick={() => onChange && onChange("PUSH",{ index: 0 , data: null })}>
-                <AiOutlinePlusSquare />
+                &#10010;
             </button>
         </React.Fragment>
         <React.Fragment>
@@ -28,7 +28,7 @@ export const HeaderRow: React.FunctionComponent<HeaderRow.Params>= ({ headers, o
         </React.Fragment>
         <React.Fragment>
             <button onClick={() => onChange && onChange("CLEAR")}>
-                <AiOutlineClear />
+                C
             </button>
         </React.Fragment>
     </TableRow>
